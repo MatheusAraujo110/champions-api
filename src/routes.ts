@@ -3,6 +3,6 @@ import { getPlayer } from "./controller/players-controller";
 
 const router = Router()
 
-router.get("/api", getPlayer)
+router.get("/api/players", getPlayer)
 
 export default router
