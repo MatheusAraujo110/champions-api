@@ -1,14 +1,24 @@
 import { Request, Response } from "express"
 import * as Service from "../service/players-services"
+import { noContent } from "../utils/hhtp-helper"
 
 
 export const getPlayer = async (req: Request, res: Response) => {
-    const HttpResponse = await Service.getPlayerService()
-    res.status(HttpResponse.statusCode).json(HttpResponse.body)
+    const httpResponse = await Service.getPlayerService()
+    res.status(httpResponse.statusCode).json(httpResponse.body)
 }
 
 export const getPlayerById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id)  // convertendo para number
-    const HttpResponse = await Service.getPlayerByIdService(id)
-    res.status(HttpResponse.statusCode).json(HttpResponse.body)
+    const httpResponse = await Service.getPlayerByIdService(id)
+    res.status(httpResponse.statusCode).json(httpResponse.body)
+}
+
+export const postPlayer = async (req: Request, res: Response) => {
+    const bodyValue = req.body
+    const httpResponse = await Service.createPlayerService(bodyValue)
+
+    if (httpResponse) {
+        res.status(httpResponse.statusCode).json(httpResponse.body)
+    }
 }
