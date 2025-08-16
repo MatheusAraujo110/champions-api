@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import * as Service from "../service/players-services"
+import { StatisticsModel } from "../models/statistics-model"
 
 export const getPlayer = async (req: Request, res: Response) => {
     const httpResponse = await Service.getPlayerService()
@@ -24,5 +25,12 @@ export const postPlayer = async (req: Request, res: Response) => {
 export const deletePlayer = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id)
     const httpResponse = await Service.deletePLayerService(id)
+    res.status(httpResponse.statusCode).json(httpResponse.body)
+}
+
+export const updatePlayer = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id)
+    const bodyValue: StatisticsModel = req.body
+    const httpResponse = await Service.updatePlayerService(id, bodyValue)
     res.status(httpResponse.statusCode).json(httpResponse.body)
 }

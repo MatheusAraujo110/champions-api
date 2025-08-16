@@ -9,7 +9,7 @@ export interface PlayerModel {
         Pace: number
         Shooting: number
         Passing: number
-        Dribbring: number
+        Dribbling: number
         Defending: number
         Physical: number
     }
