@@ -1,5 +1,5 @@
-import { PlayerModel } from './../models/player-model';
-import * as PlayerRepository from './../repositories/players-repository';
+import { PlayerModel } from '../models/player-model';
+import * as PlayerRepository from '../repositories/players-repository';
 import * as HttpResponse from "../utils/hhtp-helper"
 import { StatisticsModel } from '../models/statistics-model';
 
@@ -46,9 +46,13 @@ export const createPlayerService = async (player: PlayerModel) => {
 
 export const deletePLayerService = async (id: number) => {
     let response = null
-    await PlayerRepository.deleteOnePlayer(id)
-
-    response = await HttpResponse.ok({ message: "deleted" })
+    const isDelete = await PlayerRepository.deleteOnePlayer(id)
+    
+    if (isDelete) {
+        response = await HttpResponse.ok({ message: "deleted" })
+    } else {
+        response = await HttpResponse.badRequest()
+    }
     return response
 }
 

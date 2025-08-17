@@ -1,6 +1,6 @@
 import { PlayerModel } from "../models/player-model"
 import { StatisticsModel } from "../models/statistics-model"
-import { createPlayerService } from "../service/players-services"
+import { createPlayerService } from "../service/players-service"
 
 const database: PlayerModel[] = [
     {
@@ -51,10 +51,12 @@ export const insertPlayer = async (player: PlayerModel) => {
 
 export const deleteOnePlayer = async (id: number) => {
     const index = database.findIndex(p => p.id === id)
-
     if (index !== -1) {
         database.splice(index, 1)
+        return true
     }
+
+    return false
 }
 
 export const findAndModifyPlayer = async (id: number, statistics: StatisticsModel): Promise<PlayerModel> => {
